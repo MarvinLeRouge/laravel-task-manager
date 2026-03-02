@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
+use App\Models\Category;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
-use App\Models\Task;
 
 class TaskController extends Controller
 {
@@ -13,7 +14,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::where('user_id', auth()->id())->get();
+        return view('tasks.index', compact('tasks'));
     }
 
     /**
@@ -21,7 +23,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::where('user_id', auth()->id())->get();
+        return view('tasks.create', compact('categories'));
     }
 
     /**
@@ -29,7 +32,7 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        //
+        // à implémenter
     }
 
     /**
@@ -37,7 +40,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        return view('tasks.show', compact('task'));
     }
 
     /**
@@ -53,7 +56,7 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        // à implémenter
     }
 
     /**
@@ -61,6 +64,6 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        // à implémenter
     }
 }
