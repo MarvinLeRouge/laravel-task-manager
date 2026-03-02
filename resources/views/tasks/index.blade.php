@@ -9,6 +9,36 @@
                 Nouvelle tâche
             </a>
 
+            <form method="GET" action="{{ route('tasks.index') }}" class="bg-white shadow rounded p-4 mb-4 flex flex-wrap gap-3">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Rechercher..."
+                    class="rounded border-gray-300 shadow-sm text-sm">
+
+                <select name="status" class="rounded border-gray-300 shadow-sm text-sm">
+                    <option value="">Tous les statuts</option>
+                    <option value="todo" {{ request('status') == 'todo' ? 'selected' : '' }}>À faire</option>
+                    <option value="in_progress" {{ request('status') == 'in_progress' ? 'selected' : '' }}>En cours</option>
+                    <option value="done" {{ request('status') == 'done' ? 'selected' : '' }}>Terminé</option>
+                </select>
+
+                <select name="priority" class="rounded border-gray-300 shadow-sm text-sm">
+                    <option value="">Toutes les priorités</option>
+                    <option value="low" {{ request('priority') == 'low' ? 'selected' : '' }}>Basse</option>
+                    <option value="medium" {{ request('priority') == 'medium' ? 'selected' : '' }}>Moyenne</option>
+                    <option value="high" {{ request('priority') == 'high' ? 'selected' : '' }}>Haute</option>
+                </select>
+
+                <select name="category_id" class="rounded border-gray-300 shadow-sm text-sm">
+                    <option value="">Toutes les catégories</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <button type="submit" class="bg-indigo-500 text-white px-3 py-1 rounded text-sm">Filtrer</button>
+                <a href="{{ route('tasks.index') }}" class="text-gray-500 px-3 py-1 text-sm">Réinitialiser</a>
+            </form>
             <div class="bg-white shadow rounded p-6">
                 @forelse($tasks as $task)
                     <div class="flex items-center justify-between py-2 border-b">
