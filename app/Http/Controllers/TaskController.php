@@ -32,7 +32,12 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        // à implémenter
+        Task::create([
+            ...$request->validated(),
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -48,7 +53,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        $categories = Category::where('user_id', auth()->id())->get();
+        return view('tasks.edit', compact('task', 'categories'));
     }
 
     /**
@@ -56,7 +62,9 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        // à implémenter
+        $task->update($request->validated());
+
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -64,6 +72,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        // à implémenter
+        $task->delete();
+
+        return redirect()->route('tasks.index');
     }
 }
