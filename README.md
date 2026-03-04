@@ -1,259 +1,223 @@
-# Laravel Task Manager
+# Laravel Task Manager — Blade Branch
 
-Une application de gestion de tâches moderne construite avec **Laravel 12**, **Blade**, **Tailwind CSS** et **Alpine.js**.
+A modern task management application built with **Laravel 12**, **Blade**, **Tailwind CSS** and **Alpine.js**.
 
 ![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=flat&logo=laravel&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat&logo=php&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-## 📋 Table des matières
+> 💡 **This repo contains two implementations of the same app:**
+> - **`main`** *(this branch)* — Server-side rendering with Blade views
+> - **`api`** — REST API with Sanctum + Vue.js frontend in `/frontend`
 
-- [Fonctionnalités](#-fonctionnalités)
-- [Technologies utilisées](#-technologies-utilisées)
-- [Prérequis](#-prérequis)
+## 📋 Table of Contents
+
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Requirements](#-requirements)
 - [Installation](#-installation)
-- [Utilisation](#-utilisation)
-- [Structure du projet](#-structure-du-projet)
+- [Usage](#-usage)
+- [Project Structure](#-project-structure)
 - [Tests](#-tests)
-- [Captures d'écran](#-captures-décran)
-- [Contribuer](#-contribuer)
-- [Licence](#-licence)
+- [About](#-about)
+- [License](#-license)
 
-## ✨ Fonctionnalités
+## ✨ Features
 
-### Gestion des tâches
-- ✅ **CRUD complet** - Créer, lire, modifier et supprimer des tâches
-- 📊 **Statuts** - À faire, En cours, Terminé
-- 🔥 **Priorités** - Basse, Moyenne, Haute
-- 📅 **Dates d'échéance** - Définir des deadlines pour chaque tâche
-- 🔍 **Recherche** - Rechercher dans les titres et descriptions
-- 🏷️ **Filtres** - Filtrer par statut, priorité et catégorie
+### Task Management
+- ✅ **Full CRUD** — Create, read, update and delete tasks
+- 📊 **Statuses** — Todo, In Progress, Done
+- 🔥 **Priorities** — Low, Medium, High
+- 📅 **Due dates** — Set deadlines for each task
+- 🔍 **Search** — Search by title and description
+- 🏷️ **Filters** — Filter by status, priority and category
 
-### Gestion des catégories
-- 📁 Création de catégories personnalisées
-- 🎨 Codes couleur hexadécimaux pour une identification visuelle
-- 📂 Association des tâches aux catégories
+### Category Management
+- 📁 Create custom categories
+- 🎨 Hex color codes for visual identification
+- 📂 Associate tasks with categories
 
-### Authentification & Sécurité
-- 🔐 Système d'authentification complet (Laravel Breeze)
-- 👤 Inscription et connexion sécurisées
-- ✉️ Vérification d'email
-- 🔑 Réinitialisation de mot de passe
-- 🛡️ Politiques d'autorisation (Policies) pour la protection des tâches
-- 👤 Gestion du profil utilisateur
+### Authentication & Security
+- 🔐 Full authentication system (Laravel Breeze)
+- 👤 Secure registration and login
+- ✉️ Email verification
+- 🔑 Password reset
+- 🛡️ Authorization Policies for task protection
+- 👤 User profile management
 
-### Multi-utilisateurs
-- 🔒 Chaque utilisateur possède ses propres tâches et catégories
-- 🚫 Isolation des données par utilisateur
+### Multi-User Support
+- 🔒 Each user owns their own tasks and categories
+- 🚫 Data isolation per user
 
-## 🛠 Technologies utilisées
+## 🛠 Tech Stack
 
-| Backend | Frontend | Outils |
-|---------|----------|--------|
+| Backend | Frontend | Tools |
+|---------|----------|-------|
 | Laravel 12 | Blade Templates | Vite 7 |
 | PHP 8.2+ | Tailwind CSS 4 | Alpine.js 3 |
-| Eloquent ORM | Components réutilisables | Laravel Pail |
+| Eloquent ORM | Reusable Components | Laravel Pail |
 | Migrations | Responsive Design | Laravel Pint |
 | Form Requests | | PHPUnit |
 
-## 📦 Prérequis
-
-Avant de commencer, assurez-vous d'avoir installé :
+## 📦 Requirements
 
 - **PHP** >= 8.2
-- **Composer** (gestionnaire de dépendances PHP)
-- **Node.js** >= 18.x et **npm**
-- **SQLite** (ou un autre SGBD : MySQL, PostgreSQL)
+- **Composer**
+- **Node.js** >= 18.x and **npm**
+- **SQLite** (or MySQL / PostgreSQL)
 - **Git**
 
 ## 🚀 Installation
 
-### 1. Cloner le repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/MarvinLeRouge/laravel-task-manager.git
 cd laravel-task-manager
 ```
 
-### 2. Installer les dépendances
+### 2. Install Dependencies
 
 ```bash
-# Installer les dépendances PHP
 composer install
-
-# Installer les dépendances Node.js
 npm install
 ```
 
-### 3. Configurer l'environnement
+### 3. Environment Setup
 
 ```bash
-# Copier le fichier .env.example vers .env
 cp .env.example .env
-
-# Générer la clé d'application
 php artisan key:generate
 ```
 
-### 4. Configurer la base de données
+### 4. Database Configuration
 
-Par défaut, le projet utilise **SQLite**. Créez le fichier de base de données :
+SQLite is used by default:
 
 ```bash
 touch database/database.sqlite
-```
-
-Puis lancez les migrations :
-
-```bash
 php artisan migrate
 ```
 
-### 5. Compiler les assets
+For MySQL/PostgreSQL, update `.env` with your credentials then run `php artisan migrate`.
+
+### 5. Compile Assets
 
 ```bash
-# Pour le développement (avec hot-reload)
+# Development (with hot-reload)
 npm run dev
 
-# Ou pour la production
+# Production
 npm run build
 ```
 
-### 6. Lancer le serveur de développement
+### 6. Start the Development Server
 
 ```bash
-# Option 1 : Utiliser le script composer (recommandé)
+# Option 1: Composer script (recommended — starts server, queue, logs and vite)
 composer dev
 
-# Option 2 : Serveur Laravel classique
+# Option 2: Laravel server only
 php artisan serve
 ```
 
-L'application sera accessible à l'adresse : http://localhost:8000
+The application will be available at: `http://localhost:8000`
 
-## 💡 Utilisation
-
-### Commandes disponibles
-
-| Commande | Description |
-|----------|-------------|
-| `composer dev` | Lance le serveur avec hot-reload (server, queue, logs, vite) |
-| `composer test` | Exécute la suite de tests |
-| `npm run dev` | Lance Vite en mode développement |
-| `npm run build` | Compile les assets pour la production |
-| `php artisan migrate` | Exécute les migrations |
-| `php artisan migrate:fresh --seed` | Réinitialise la BDD avec les seeders |
-
-### Script d'installation rapide
+### Quick Setup Script
 
 ```bash
 composer setup
 ```
 
-Ce script exécute automatiquement :
-- `composer install`
-- Copie `.env.example` vers `.env`
-- Génère la clé d'application
-- Exécute les migrations
-- `npm install`
-- `npm run build`
+This script automatically runs: `composer install`, copies `.env`, generates the app key, runs migrations, `npm install` and `npm run build`.
 
-## 📁 Structure du projet
+## 💡 Usage
+
+| Command | Description |
+|---------|-------------|
+| `composer dev` | Start server with hot-reload |
+| `composer test` | Run the test suite |
+| `npm run dev` | Start Vite in development mode |
+| `npm run build` | Compile assets for production |
+| `php artisan migrate` | Run migrations |
+| `php artisan migrate:fresh --seed` | Reset DB with seeders |
+
+## 📁 Project Structure
 
 ```
 laravel-task-manager/
 ├── app/
 │   ├── Http/
 │   │   ├── Controllers/
-│   │   │   ├── CategoryController.php    # CRUD des catégories
-│   │   │   ├── TaskController.php        # CRUD des tâches
-│   │   │   ├── TaskFilterController.php  # Filtrage des tâches
-│   │   │   └── ProfileController.php     # Gestion du profil
+│   │   │   ├── CategoryController.php    # Category CRUD
+│   │   │   ├── TaskController.php        # Task CRUD
+│   │   │   ├── TaskFilterController.php  # Task filtering
+│   │   │   └── ProfileController.php     # Profile management
 │   │   └── Requests/
-│   │       ├── StoreTaskRequest.php      # Validation création tâche
-│   │       ├── UpdateTaskRequest.php     # Validation modification tâche
+│   │       ├── StoreTaskRequest.php      # Task creation validation
+│   │       ├── UpdateTaskRequest.php     # Task update validation
 │   │       └── ...
 │   ├── Models/
-│   │   ├── Task.php                      # Modèle Task
-│   │   ├── Category.php                  # Modèle Category
-│   │   └── User.php                      # Modèle User
+│   │   ├── Task.php
+│   │   ├── Category.php
+│   │   └── User.php
 │   └── Policies/
-│       └── TaskPolicy.php                # Autorisations Task
+│       └── TaskPolicy.php
 ├── database/
-│   ├── migrations/                       # Migrations de la BDD
-│   ├── factories/                        # Factories pour les tests
-│   └── seeders/                          # Seeders
+│   ├── migrations/
+│   ├── factories/
+│   └── seeders/
 ├── resources/
 │   ├── views/
-│   │   ├── tasks/                        # Vues des tâches
-│   │   ├── categories/                   # Vues des catégories
-│   │   ├── layouts/                      # Layouts Blade
-│   │   └── components/                   # Components Blade
+│   │   ├── tasks/
+│   │   ├── categories/
+│   │   ├── layouts/
+│   │   └── components/
 │   ├── js/
 │   └── css/
 ├── routes/
-│   ├── web.php                           # Routes web
-│   └── auth.php                          # Routes d'authentification
+│   ├── web.php
+│   └── auth.php
 └── tests/
-    ├── Feature/                          # Tests fonctionnels
-    └── Unit/                             # Tests unitaires
+    ├── Feature/
+    └── Unit/
 ```
 
 ## 🧪 Tests
 
-Le projet inclut une suite de tests pour garantir la qualité du code.
-
 ```bash
-# Exécuter tous les tests
+# Run all tests
 composer test
 
-# Ou directement avec PHPUnit
+# Or directly with PHPUnit
 php artisan test
 ```
 
-## 📸 Captures d'écran
+## 🎓 About
 
-> Ajoutez ici des captures d'écran de votre application :
-> - Page d'accueil / Dashboard
-> - Liste des tâches avec filtres
-> - Formulaire de création/modification
-> - Gestion des catégories
+This project demonstrates key Laravel concepts through a fully functional application:
 
-## 🤝 Contribuer
+- MVC architecture with Laravel
+- Authentication and authorization (Breeze + Policies)
+- Form validation with Form Requests
+- Eloquent relationships (One-to-Many)
+- Automated testing with PHPUnit
+- Frontend integration with Tailwind CSS and Alpine.js
+- Asset bundling with Vite
 
-Les contributions sont les bienvenues ! Voici comment vous pouvez contribuer :
+For an API-first approach to the same application, see the [`api` branch](https://github.com/MarvinLeRouge/laravel-task-manager/tree/api).
 
-1. Forkez le projet
-2. Créez une branche (`git checkout -b feature/AmazingFeature`)
-3. Commitez vos changements (`git commit -m 'Add some AmazingFeature'`)
-4. Pushez vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrez une Pull Request
+## 📄 License
 
-## 📄 Licence
-
-Ce projet est distribué sous la licence [MIT](LICENSE).
-
----
-
-## 🎓 À propos
-
-Ce projet a été développé dans le cadre d'un apprentissage de **Laravel** et des bonnes pratiques du développement web moderne. Il démontre la maîtrise des concepts suivants :
-
-- Architecture MVC avec Laravel
-- Authentification et autorisation
-- Validation des formulaires (Form Requests)
-- Relations Eloquent (One-to-Many, Polymorphic)
-- Tests automatisés avec PHPUnit
-- Intégration frontend avec Tailwind CSS et Alpine.js
-- Build d'assets avec Vite
+This project is open-sourced software licensed under the [MIT License](LICENSE).
 
 ---
 
 <div align="center">
 
-**Développé avec ❤️ par Jean Ceugniet**
+**Built with ❤️ using Laravel 12**
 
-[⬆ Retour en haut](#laravel-task-manager)
+[⬆ Back to Top](#laravel-task-manager--blade-branch)
 
 </div>
