@@ -1,0 +1,31 @@
+import axios from 'axios'
+
+const api = axios.create({
+    baseURL: 'http://localhost:8001/api',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+    },
+})
+
+// Ajoute le token automatiquement à chaque requête
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token')
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
+
+// Gestion des réponses
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 422) {
+            return Promise.reject(error.response.data.errors)
+        }
+        return Promise.reject(error)
+    }
+)
+
+export default api
